@@ -58,13 +58,13 @@
 					if (isShooting) {
 						
 						var bulletTimer = getValueFromMap(shroomState, "bulletTimer", 0);
-						var bulletTimerDuration = getValueFromMap(shroomState, "bulletTimerDuration", choose(0.27, 0.30, 0.33));
+						var bulletTimerDuration = getValueFromMap(shroomState, "bulletTimerDuration", choose(0.40, 0.50, 0.70));
 						bulletTimer = incrementTimer(bulletTimer, bulletTimerDuration);
 						if (timerFinished(bulletTimer)) {
 					
 							var shootDummyBullet = function(shroomState, shroomPosition) {
 								
-								var bulletAngleRange = getValueFromMap(shroomState, "bulletAngleRange", choose(7, 8, 9, 10));
+								var bulletAngleRange = getValueFromMap(shroomState, "bulletAngleRange", choose(0.008, 0.009));
 								var bulletSpeed = getValueFromMap(shroomState, "bulletSpeed", choose(0.009, 0.01));
 								spawnBullet(
 									createPosition(
@@ -84,7 +84,7 @@
 								if (getPositionVertical(shroomPosition) < 0.77) {
 									
 									var playerPosition = getGridElementPosition(getVisuPlayerGridElement(fetchPlayers()[| 0]));
-									var bulletSpeed = getValueFromMap(shroomState, "bulletSpeed", choose(0.009, 0.01));
+									var bulletSpeed = getValueFromMap(shroomState, "bulletSpeed", choose(0.007, 0.008));
 									spawnBullet(
 										createPosition(
 											getPositionHorizontal(shroomPosition),
