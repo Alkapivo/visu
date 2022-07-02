@@ -349,7 +349,7 @@
 				}
 			}
 			
-			if (keyboard_check_pressed(ord("N"))) {
+			if (keyboard_check_pressed(ord("C"))) {
 			
 				this.gameplayType = this.gameplayType == "bullethell"
 					? "platformer"

@@ -1,6 +1,6 @@
 {
   "ConfigValues": {
-    "prod": {"textureGroupId":"{\"name\":\"texturegroup_henerum_bkg\",\"path\":\"texturegroups/texturegroup_henerum_bkg\"}",},
+    "prod": {"textureGroupId":"{\"name\":\"Default\",\"path\":\"texturegroups/Default\"}",},
   },
   "bboxMode": 0,
   "collisionKind": 1,

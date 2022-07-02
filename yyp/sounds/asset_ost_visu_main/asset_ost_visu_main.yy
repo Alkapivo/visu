@@ -1,4 +1,7 @@
 {
+  "ConfigValues": {
+    "prod": {"audioGroupId":"{\"name\":\"audiogroup_default\",\"path\":\"audiogroups/audiogroup_default\"}",},
+  },
   "conversionMode": 0,
   "compression": 3,
   "volume": 1.0,
