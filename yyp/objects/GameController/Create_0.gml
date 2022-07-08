@@ -310,6 +310,10 @@
 								
 									eventsRecorder.startRecording(eventsRecorder);	
 								}
+								
+								global.isGameplayStarted = true;
+								global.__hackWithRecorder = true;
+								getGameController().isGameplayStarted = global.isGameplayStarted;
 							} catch(exception) {
 								logger(exception.message, LogType.INFO);
 								printStackTrace();
@@ -360,8 +364,8 @@
 							setInstanceVariable(getPlayerManager(), "gameplayType", gameplayType);
 							
 							global.__baseScaleResolution = gameplayType == "bullethell"
-								? 2048
-								: 1280
+								? 3072
+								: 2048
 							
 							var jumbotronEvent = createJumbotronEvent(
 								stringParams(
@@ -396,8 +400,8 @@
 			            keyboardMapping: [ "A", "6" ],
 			            pressed: function () {
 
-							var topLineWidth = 0.44;
-							var bottomLineWidth = 0.46;
+							var topLineWidth = 0.38;
+							var bottomLineWidth = 0.39;
 							logger("Set topLineWidth: {0}. bottomLineWidth: {1}", LogType.INFO, topLineWidth, bottomLineWidth);
 							var fieldModifierTask = createFieldModifierTask(getGridRenderer(), "topLineWidth", topLineWidth, 0.001, 1, 0)
 							sendFieldModifierTask(fieldModifierTask);
@@ -413,8 +417,8 @@
 			            keyboardMapping: [ "S", "6" ],
 			            pressed: function () {
 							
-							var topLineWidth = 0.55;
-							var bottomLineWidth = 0.68;
+							var topLineWidth = 0.47;
+							var bottomLineWidth = 0.69;
 							logger("Set topLineWidth: {0}. bottomLineWidth: {1}", LogType.INFO, topLineWidth, bottomLineWidth);
 							var fieldModifierTask = createFieldModifierTask(getGridRenderer(), "topLineWidth", topLineWidth, 0.001, 1, 0)
 							sendFieldModifierTask(fieldModifierTask);
@@ -430,8 +434,8 @@
 			            keyboardMapping: [ "D", "6" ],
 			            pressed: function () {
 
-							var topLineWidth = 0.7;
-							var bottomLineWidth = 0.9;
+							var topLineWidth = 0.75;
+							var bottomLineWidth = 0.96;
 							logger("Set topLineWidth: {0}. bottomLineWidth: {1}", LogType.INFO, topLineWidth, bottomLineWidth);
 							var fieldModifierTask = createFieldModifierTask(getGridRenderer(), "topLineWidth", topLineWidth, 0.001, 1, 0)
 							sendFieldModifierTask(fieldModifierTask);
@@ -517,7 +521,7 @@
 
 			                var shaderEvent = createShaderEvent(
 								"Mosaic",
-								2.6,
+								3.6,
 								createMap(
 									createTuple("amount", [ 96, 1024, 0.8, 0.002 ])
 								)
@@ -535,11 +539,13 @@
 			            pressed: function () {
 
 			                var shaderEvent = createShaderEvent(
-								"LED",
-								2.2,
+								"Wave",
+								4.2,
 								createMap(
-									[ "brightness", 1.0 ],
-									[ "ledSize",  [ 32, 128, 0.01 ] ]
+									[ "amount", [ 0, 15, 0.05 ] ],
+									[ "distortion", [ 7, 60, 0.08 ] ],
+									[ "speed", [ 2.1 ] ],
+									[ "time",  [ 0, 1000, 0.01 ] ]
 								)
 							);
 							logger("Sending shaderEvent: {0}", LogType.INFO, getShaderEventName(shaderEvent));
@@ -554,12 +560,9 @@
 			            pressed: function () {
 
 							var shaderEvent = createShaderEvent(
-								"LED",
-								2.2,
-								createMap(
-									[ "brightness", 1.0 ],
-									[ "ledSize", [ 128, 32, 0.01 ] ]
-								)
+								"Revert",
+								1.6,
+								createMap()
 							);
 							logger("Sending shaderEvent: {0}", LogType.INFO, getShaderEventName(shaderEvent));
 							sendShaderEvent(shaderEvent)
@@ -574,15 +577,18 @@
 
 							var shaderEvent = createShaderEvent(
 								"Magnify",
-								2.2,
+								3.3,
 								createMap(
 									[ "positionX", [ 0.5 ] ],
 									[ "positionY", [ 0.5 ] ],
-									[ "radius", [ 0.05, 0.70, 0.005 ] ],
-									[ "minZoom", [ 0.10, 0.30, 0.002 ] ],
-									[ "maxZoom", [ 0.30, 0.8, 0.002] ]
+									[ "radius", [ 0.06, 0.70, 0.006 ] ],
+									[ "minZoom", [ 0.20, 0.50, 0.002 ] ],
+									[ "maxZoom", [ 0.50, 0.9, 0.002] ]
 								)
 							);
+							
+							
+							
 							logger("Sending shaderEvent: {0}", LogType.INFO, getShaderEventName(shaderEvent));
 							sendShaderEvent(shaderEvent)
 			            }
@@ -600,8 +606,8 @@
 								createMap(
 									[ "positionX", 0.5 ],
 						            [ "positionY", 0.5 ],
-						            [ "amount", [ 1, 120, 0.2 ] ],
-						            [ "distortion", 40, 600, 0.2 ],
+						            [ "amount", [ 1, 160, 0.2 ] ],
+						            [ "distortion", 40, 600, 0.16 ],
 						            [ "speed", [ 2, 10, 0.001 ] ],
 						            [ "time", [ 0, 1000, 0.1 ] ]
 								)
@@ -621,9 +627,9 @@
 								"Wave",
 								7.9,
 								createMap(
-									[ "amount", [ 15, 25, 0.05 ] ],
-									[ "distortion", [ 30, 45, 0.05 ] ],
-									[ "speed", [ 2 ] ],
+									[ "amount", [ 0, 15, 0.05 ] ],
+									[ "distortion", [ 30, 45, 0.04 ] ],
+									[ "speed", [ 1.6 ] ],
 									[ "time",  [ 0, 1000, 0.01 ] ]
 								)
 							);
@@ -677,7 +683,7 @@
 			            keyboardMapping: [ "A", "7" ],
 			            pressed: function () {
 
-							var spawnMargin = 0.10;
+							var spawnMargin = 0.05;
 							global.shroomVisuSpawnHorizontalRange = createTuple(0.0 + spawnMargin, 0.25 - spawnMargin);
 							logger("Update spawn position");
 			            }
@@ -689,7 +695,7 @@
 			            keyboardMapping: [ "S", "7" ],
 			            pressed: function () {
 
-							var spawnMargin = 0.10;
+							var spawnMargin = 0.05;
 							global.shroomVisuSpawnHorizontalRange = createTuple(0.25 + spawnMargin, 0.5 - spawnMargin);
 							logger("Update spawn position");
 			            }
@@ -701,7 +707,7 @@
 			            keyboardMapping: [ "D", "7" ],
 			            pressed: function () {
 
-							var spawnMargin = 0.10;
+							var spawnMargin = 0.05;
 							global.shroomVisuSpawnHorizontalRange = createTuple(0.5 + spawnMargin, 0.75 - spawnMargin);
 							logger("Update spawn position");
 			            }
@@ -713,7 +719,7 @@
 			            keyboardMapping: [ "F", "7" ],
 			            pressed: function () {
 
-							var spawnMargin = 0.10;
+							var spawnMargin = 0.05;
 							global.shroomVisuSpawnHorizontalRange = createTuple(0.75 + spawnMargin, 1.0 - spawnMargin);
 							logger("Update spawn position");							
 			            }

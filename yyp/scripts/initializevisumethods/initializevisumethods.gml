@@ -144,7 +144,7 @@ function initializeVisuGlobals() {
 	]
 	#macro GameplayTypes global.__GameplayTypes
 	
-	global.__baseScaleResolution = 1280;
+	global.__baseScaleResolution = 2048;
 	#macro BASE_SCALE_RESOLUTION global.__baseScaleResolution
 }
 

@@ -229,8 +229,8 @@
 				// Render texture
 				gpuSetSurfaceTarget(gameSurface);
 				drawSurface(shaderSurface, 0, 0, 1.0, 1.0, 0.0, alpha, c_white, [ 0.5, 0.5 ]);
-					
-				if (pipeSize > 2) {
+				global.shaderPipeLimit = 2;
+				if (pipeSize > global.shaderPipeLimit) {
 						
 					var gridRendererSurface = getGridRendererSurface();
 					gpu_set_blendmode(bm_add);

@@ -5,11 +5,12 @@
 		isHandheld() ? global.viewWidth : global.guiWidth, 
 		isHandheld() ? global.viewWidth : global.guiHeight, true);
 
-	var invertedColorGridBackground = c_black;
+	
 	var colorGridBackground = getInstanceVariable(
 		getGridRenderer(), 
 		"colorGridBackground"
 	);
+	var invertedColorGridBackground = colorGridBackground;
 
 	if (isNumber(colorGridBackground)) { // in gamemaker color is a number :)
 	

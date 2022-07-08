@@ -1,6 +1,6 @@
 {
   "ConfigValues": {
-    "prod": {"option_html5_version":"0.5.20.0","option_html5_browser_title":"visu","option_html5_foldername":"resources/visu/midbooze/distant-memory","option_html5_icon":"fav.ico","option_html5_usesplash":"true","option_html5_splash_png":"splash.png","option_html5_usebuiltinfont":"true","option_html5_usebuiltinparticles":"true",},
+    "prod": {"option_html5_version":"0.5.21.0","option_html5_browser_title":"visu","option_html5_foldername":"resources/visu/downcasted-enmity/butterflies","option_html5_icon":"fav.ico","option_html5_usesplash":"true","option_html5_splash_png":"splash.png","option_html5_usebuiltinfont":"true","option_html5_usebuiltinparticles":"true",},
   },
   "option_html5_browser_title": "Visu",
   "option_html5_version": "1.0.0.0",

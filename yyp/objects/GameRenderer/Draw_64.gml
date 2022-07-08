@@ -523,55 +523,56 @@
 	//gpuResetShader();
 	#endregion
 	
-	var midiMatrixController = getInstanceVariable(getGameController(), "midiMatrixController");
-	if (isStruct(midiMatrixController)) {
-	
-		var surface = midiMatrixController.surface;
-		if (isSurfaceValid(surface)) {
-			
-			renderSurface(surface);
-		}
-	}
-	
-	var midiController = getGameController().midiMatrixController;
-	var currentRecording = midiController.eventsRecorder.getCurrentRecording(midiController.eventsRecorder);
-	if (isStruct(currentRecording)) {
-		
-		draw_rectangle_color(
-			0.0 + 32,
-			RealHeight - 32 - 24,
-			0.0 + 32 + 24,
-			RealHeight - 32,
-			c_red,
-			c_red,
-			c_red,
-			c_red,
-			false
-		)
-	} else {
-	
-		draw_set_halign(fa_left);
-		draw_set_valign(fa_bottom);
-		draw_set_font(font_ibm_ps2thin4);
-		var gameplayData = getGameController().gameplayData;
-		var text = stringParams(
-			"Shroom counter:    {0}\n" +
-			"Respawn counter:   {1}\n" +
-			"Active shaders:    {2}\n",
-			gameplayData.shroomCounter,
-			gameplayData.respawnCounter,
-			this.shaderPipeCurrentSize
-		);
-		renderText(text,  32, RealHeight - 32);
-	}
 	
 	if (global.isGameplayStarted) {
 		
-		var recording = getGameController()
-			.midiMatrixController
-			.eventsPlayer
-			.recording;
+		var midiMatrixController = getInstanceVariable(getGameController(), "midiMatrixController");
+		if (isStruct(midiMatrixController)) {
+	
+			var surface = midiMatrixController.surface;
+			if (isSurfaceValid(surface)) {
+			
+				renderSurface(surface);
+			}
+		}
+	
+		var midiController = getGameController().midiMatrixController;
+		var currentRecording = midiController.eventsRecorder.getCurrentRecording(midiController.eventsRecorder);
+		if (isStruct(currentRecording)) {
 		
+			draw_rectangle_color(
+				0.0 + 32,
+				RealHeight - 32 - 24,
+				0.0 + 32 + 24,
+				RealHeight - 32,
+				c_fuchsia,
+				c_fuchsia,
+				c_fuchsia,
+				c_fuchsia,
+				false
+			)
+		} else {
+	
+			draw_set_halign(fa_left);
+			draw_set_valign(fa_bottom);
+			draw_set_font(font_ibm_ps2thin4);
+			var gameplayData = getGameController().gameplayData;
+			var text = stringParams(
+				"Shroom counter:    {0}\n" +
+				"Respawn counter:   {1}\n" +
+				"Active shaders:    {2}\n",
+				gameplayData.shroomCounter,
+				gameplayData.respawnCounter,
+				this.shaderPipeCurrentSize
+			);
+			renderText(text,  32, RealHeight - 32);
+		}
+
+		var recording = midiController.eventsPlayer.recording;
+		var currentRecording = midiController.eventsRecorder.getCurrentRecording(midiController.eventsRecorder);
+		if (isStruct(currentRecording)) {
+			recording = currentRecording;	
+		}
 		if (isStruct(recording)) {
 				
 			var soundInstanceId = global.__soundInstanceId;
@@ -591,6 +592,21 @@
 					GuiHeight - 32,
 					1
 				);
+				
+				draw_set_font(font_ibm_ps2thin4);
+				draw_set_halign(fa_right);
+				draw_set_valign(fa_middle);
+				
+				var minutes = string(currentLength div 60);
+				var seconds = string(currentLength mod 60);
+				minutes = string_length(minutes) == 1
+					? stringParams("0{0}", minutes) 
+					: minutes
+				seconds = floor(currentLength mod 60) < 10
+					? stringParams("0{0}", seconds) 
+					: seconds
+				
+				renderText(stringParams("{0}:{1}", minutes,seconds), (GuiWidth / 2) - (barLength / 2), GuiHeight - 32);
 				
 				draw_set_alpha(0.7);
 				draw_set_color(c_fuchsia);
@@ -623,8 +639,9 @@
 		draw_set_alpha(1.0);
 		
 		// length 30
-		var title =		"           Midbooze          ";
-		var subtitle =	"        Distant Memory       ";
+		                
+		var title =		"      Downcasted/Enmity      ";
+		var subtitle =	"         Butterflies         ";
 		
 		var text = stringParams(
 			"{0}\n{1}\n\n{2}        {3}\n\n{4}\n{5}",
@@ -648,3 +665,36 @@
 	}
 	
 	//this.bpmController.render(this.bpmController);
+	
+	
+	var cameraData = getGridRenderer().cameraData;
+	var circleSize = 32;
+	/*
+	draw_set_alpha(0.6);
+	draw_circle_color(
+		cameraData.guiX,
+		cameraData.guiY,
+		32,
+		c_red,
+		c_lime,
+		true
+	);
+	draw_circle_color(
+		cameraData.guiX,
+		cameraData.guiY,
+		32 - 2,
+		c_fuchsia,
+		c_red,
+		true
+	);
+	draw_circle_color(
+		cameraData.guiX,
+		cameraData.guiY,
+		32 - 4,
+		c_orange,
+		c_blue,
+		true
+	);
+	draw_set_alpha(1.0);
+	*/
+	

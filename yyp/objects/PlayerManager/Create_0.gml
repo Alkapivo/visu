@@ -22,6 +22,7 @@
 	
 	//@type {Number}
 	debugMouseSpeed = 0.1;
+	
 	#endregion
 	
 	jumpFactor = getPropertyReal("player.jumpFactor", 0.029);
@@ -98,9 +99,21 @@
 
 				bulletsCooldown = 9;
 				spawnBullet(createPosition(
+						getPositionHorizontal(playerPosition) - 0.015, 
+						getPositionVertical(playerPosition)),
+					BulletProducer.PLAYER,
+					90 + 7
+				);
+				spawnBullet(createPosition(
 						getPositionHorizontal(playerPosition), 
 						getPositionVertical(playerPosition)),
 					BulletProducer.PLAYER
+				);
+				spawnBullet(createPosition(
+						getPositionHorizontal(playerPosition) + 0.015, 
+						getPositionVertical(playerPosition)),
+					BulletProducer.PLAYER,
+					90 - 7
 				);
 			}
 			
@@ -342,6 +355,7 @@
 		update: method(this, function() {
 			
 			super();
+			this.GMObject._glow();
 			
 			var players = this.players;
 			var playersSize = getListSize(players);
@@ -382,6 +396,31 @@
 			destroyDataStructure(this.players, List, "Unable to destroy players");
 	
 			super();
+		}),
+		_glow: method(this, function() {
+			
+			try {
+				var player = Core.Collections._List.get(this.players, 0);
+				var state = getVisuPlayerState(player);
+				var color = getValueFromMap(state, "blendColor", { red: 0.25, green: 0.0, blue: 1.0 });
+				var amount = getValueFromMap(state, "glowAmount", 0.001);
+				
+				color.red = color.red + amount;
+				color.green = color.green + amount;
+				color.blue = color.blue + amount;
+				
+				color.red = color.red > 1.0 ? color.red - 1.0 : color.red + applyDeltaTime(amount);
+				color.green = color.green > 1.0 ? color.green - 1.0 : color.green + applyDeltaTime(amount);
+				color.blue = color.blue > 1.0 ? color.blue - 1.0 : color.blue + applyDeltaTime(amount);
+				Core.Collections._Map.set(state, "blendColor", color);
+
+				var spriteBlend = make_color_rgb(color.red * 255, color.green * 255, color.blue * 255);
+				Core.Collections._Map.set(state, "spriteBlend", spriteBlend);
+				
+			} catch (exception) {
+				logger(exception.message, LogType.ERROR);
+				printStackTrace();
+			}
 		})
 	}
 	

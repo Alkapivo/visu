@@ -2903,6 +2903,11 @@
     {"CopyToMask":-1,"filePath":"datafiles/data","resourceVersion":"1.0","name":"trim-timestamps.js","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles/data","resourceVersion":"1.0","name":"trim-timestamps-output.json","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles/data","resourceVersion":"1.0","name":"bullethell_demo_1.json","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles/data","resourceVersion":"1.0","name":"de_1.json","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles/data","resourceVersion":"1.0","name":"de_2.json","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles/data","resourceVersion":"1.0","name":"de_butterfly_1.json","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles/data","resourceVersion":"1.0","name":"de_butterfly_2.json","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles/data","resourceVersion":"1.0","name":"de_butterfly_3.json","resourceType":"GMIncludedFile",},
   ],
   "MetaData": {
     "IDEVersion": "2022.5.0.8",

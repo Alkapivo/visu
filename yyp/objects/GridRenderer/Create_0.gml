@@ -344,6 +344,12 @@
 	secondBlendPointer = 3;
 	blendModesLength = getArrayLength(blendModes);
 	
+	cameraData = {
+		guiX: GuiWidth / 2,
+		guiY: GuiHeight / 2,
+		zoom: 1.0
+	}
+	
 	playerGridElement = null;
 	
 	gridEventPipelineDispatcher = method(this, function(pipeline) {
@@ -619,7 +625,6 @@
 		
 			if (enableGridElementsRendering) {
 			
-				/*
 				if (keyboard_check_pressed(ord("I"))) {
 					firstBlendPointer = clamp(firstBlendPointer + 1, 0, blendModesLength - 1);
 					logger("firstBlendPointer {0}", LogType.DEBUG, firstBlendPointer);
@@ -637,7 +642,7 @@
 					secondBlendPointer = clamp(secondBlendPointer - 1, 0, blendModesLength - 1);
 					logger("secondBlendPointer {0}", LogType.DEBUG, secondBlendPointer);
 				}
-				*/
+
 				var restoreBlendMode = false;
 				gpu_set_blendmode_ext(blendModes[firstBlendPointer], blendModes[secondBlendPointer]);
 				var dimension = max(viewWidth, viewHeight);
@@ -647,6 +652,7 @@
 					var gridElement = popMinPriorityQueue(gridElementPipeline);
 					
 					if (restoreBlendMode) {
+						restoreBlendMode = false;
 						gpu_set_blendmode_ext(blendModes[firstBlendPointer], blendModes[secondBlendPointer]);
 					}
 						
@@ -703,8 +709,9 @@
 					var tempSimpleSpriteScale = position[1] + 0.5;
 					var scaleFactor = 0.9;
 					var simpleSpriteScale = min(1.0, max(1 + scaleFactor - position[1], 0.0));
-					
+					var spriteBlend = c_white;
 					if (restoreBlendMode) {
+						
 						renderTexture(
 							asset_texture_spaceship_glow,
 							targetXBegin + ((targetXEnd - targetXBegin) / 2.0),
@@ -714,6 +721,9 @@
 							simpleSpriteScale,
 							1.0
 						);
+						
+						this.cameraData.guiX = targetXBegin + ((targetXEnd - targetXBegin) / 2.0);
+						this.cameraData.guiY = targetYEnd;
 					}
 					
 					if (isFlat) {
@@ -723,7 +733,10 @@
 							targetXBegin + ((targetXEnd - targetXBegin) / 2.0),
 							targetYEnd,
 							simpleSpriteScale,
-							simpleSpriteScale
+							simpleSpriteScale,
+							1.0,
+							0.0,
+							c_white
 						);
 					} else {
 					
@@ -746,6 +759,15 @@
 	});
 	
 	updateBegin = method(this, function() {
+		
+		try {
+			
+			this.colorGridBackground = colorToGMColor(this.gridColorWheel[0]);
+				
+		} catch (exception) {
+			logger(exception.message, LogType.ERROR);
+			printStackTrace();
+		}
 
 		if (mouse_wheel_down()) {
 			
@@ -905,13 +927,13 @@
 				);
 			}
 		}
-		var acc = 0.005;
-		//gamemakerAfter20YearsIntroducedFunctionKeyword(this, "topLineWidth", "T", 1.0 * acc, true);
-		//gamemakerAfter20YearsIntroducedFunctionKeyword(this, "topLineWidth", "G", -1.0 * acc, true);
-		//gamemakerAfter20YearsIntroducedFunctionKeyword(this, "bottomLineWidth", "Y", 1.0 * acc, true);
-		//gamemakerAfter20YearsIntroducedFunctionKeyword(this, "bottomLineWidth", "H", -1.0 * acc, true);
-		//gamemakerAfter20YearsIntroducedFunctionKeyword(this, "angle", "U", 1.0, false);
-		//gamemakerAfter20YearsIntroducedFunctionKeyword(this, "angle", "J", -1.0, false);
+		var acc = 0.00420;
+		gamemakerAfter20YearsIntroducedFunctionKeyword(this, "topLineWidth", "T", 1.0 * acc, true);
+		gamemakerAfter20YearsIntroducedFunctionKeyword(this, "topLineWidth", "G", -1.0 * acc, true);
+		gamemakerAfter20YearsIntroducedFunctionKeyword(this, "bottomLineWidth", "Y", 1.0 * acc, true);
+		gamemakerAfter20YearsIntroducedFunctionKeyword(this, "bottomLineWidth", "H", -1.0 * acc, true);
+		gamemakerAfter20YearsIntroducedFunctionKeyword(this, "angle", "U", 1.0, false);
+		gamemakerAfter20YearsIntroducedFunctionKeyword(this, "angle", "J", -1.0, false);
 		#endregion
 	});
 	
